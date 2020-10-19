@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        font-family: Tahoma, Geneva, sans-serif;
+        font-family: 'Mountains of Christmas', cursive;
     }
     html,
     body {
@@ -19,24 +19,10 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         font-size: 1.6rem;
+        background: darkcyan;
     }
     a {
         text-decoration: none;
-    }
-    .navside__active__button {
-        & > div {
-            background-color: #f4f6fc;
-            position: relative;
-            &:before {
-                content: '';
-                background-color: #676C7D;
-                left: 0;
-                top: 0;
-                height: 100%;
-                width: 3px;
-                position: absolute;
-            }
-        }
     }
 `;
 
