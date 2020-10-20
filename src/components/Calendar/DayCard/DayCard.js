@@ -1,7 +1,46 @@
 import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import styled from 'styled-components';
-import StyledModal from 'components/Modal/Modal';
+// import StyledModal from 'components/Modal/Modal';
+
+const StyledModal = styled.div`
+  position: absolute;
+  background: powderblue;
+  z-index: 20;
+  border-radius: 10px;
+  /* display: ${({ isModalVisible }) => (isModalVisible ? 'block' : 'none')}; */
+`;
+
+const StyledCloseButton = styled.div`
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  height: 20px;
+  width: 20px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+
+  &:before,
+  &:after {
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: black;
+    z-index: 25;
+    position: absolute;
+    top: 10px;
+  }
+
+  &:before {
+    transform: rotate(45deg);
+  }
+
+  &:after {
+    transform: rotate(-45deg);
+  }
+`;
 
 const StyledDayCardContainer = styled.div`
   background-color: transparent;
@@ -21,6 +60,7 @@ const StyledCard = styled.div`
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
+  cursor: pointer;
 
   --borderWidth: 3px;
   background: #1d1f20;
@@ -102,9 +142,9 @@ const StyledModalBackground = styled.div`
   z-index: 2;
 `;
 
-const Modal = ({ isModalVisible }) => {
-  return <StyledModal isModalVisible={isModalVisible}></StyledModal>;
-};
+// const Modal = ({ isModalVisible }) => {
+//   return <StyledModal isModalVisible={isModalVisible}></StyledModal>;
+// };
 
 const DayCard = ({ front, back, className }) => {
   const card = useRef(null);
@@ -112,33 +152,41 @@ const DayCard = ({ front, back, className }) => {
 
   const [isRevealed, setRevealed] = useState(0);
   const [isModalVisible, setModalVisible] = useState(0);
+  const [coordinates, setCoordinates] = useState();
 
   const handleReveal = () => {
     setRevealed(1);
   };
 
   const showDayModal = () => {
-    if (isRevealed && !isModalVisible) {
-      const coordinates = card.current.getBoundingClientRect();
-      const { top, left, height, width } = coordinates;
-
+    if (isRevealed) {
       card.current.style.opacity = 0;
 
-      console.log(modal);
+      if (!isModalVisible) {
+        setCoordinates(card.current.getBoundingClientRect());
+        const { top, left, height, width } = coordinates ? coordinates : card.current.getBoundingClientRect();
 
-      gsap.fromTo(
-        modal.current,
-        { top, left, width, height },
-        {
-          duration: 0.8,
-          top: `calc(50% - ${450 / 2}px)`,
-          left: `calc(50% - ${400 / 2}px)`,
-          width: '400px',
-          height: '450px',
-        }
-      );
+        gsap.fromTo(
+          modal.current,
+          { top, left, width, height },
+          {
+            duration: 0.8,
+            top: `calc(50% - ${450 / 2}px)`,
+            left: `calc(50% - ${400 / 2}px)`,
+            width: '400px',
+            height: '450px',
+          }
+        );
 
-      setModalVisible(1);
+        setModalVisible(1);
+      } else {
+        card.current.style.opacity = 1;
+        const { top, left, height, width } = coordinates;
+
+        gsap.to(modal.current, { duration: 0.8, top, left, width, height, opacity: 0 });
+
+        setModalVisible(0);
+      }
     }
   };
 
@@ -163,9 +211,9 @@ const DayCard = ({ front, back, className }) => {
           <StyledBackSide>{back}</StyledBackSide>
         </StyledCard>
       </StyledDayCardContainer>
-      <Modal ref={modal} isModalVisible={isModalVisible} />
-      {/* Damian */}
-      {/* </Modal> */}
+      <StyledModal ref={modal} isModalVisible={isModalVisible}>
+        <StyledCloseButton onClick={() => showDayModal()} />
+      </StyledModal>
       <StyledModalBackground isModalVisible={isModalVisible} />
     </>
   );
