@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 import gsap from 'gsap';
 import styled from 'styled-components';
 import Modal from 'components/Modal/Modal';
@@ -9,6 +10,7 @@ const StyledDayCardContainer = styled.div`
   perspective: 1000px;
   position: relative;
   z-index: 5;
+  user-select: none;
 
   & > div {
     ${({ isRevealed }) => (isRevealed ? 'transform: rotateY(180deg)' : null)};
@@ -101,7 +103,7 @@ const StyledModalBackground = styled.div`
   z-index: 19;
 `;
 
-const DayCard = ({ front, back, className, isActive, revealed, cardDate }) => {
+const DayCard = ({ className, isActive, revealed, cardDate, taskData }) => {
   const card = useRef(null);
   const modal = useRef(null);
 
@@ -109,8 +111,17 @@ const DayCard = ({ front, back, className, isActive, revealed, cardDate }) => {
   const [isModalVisible, setModalVisible] = useState(0);
   const [coordinates, setCoordinates] = useState();
 
-  const handleReveal = () => {
+  const { id, type, content, correctAnswer } = taskData;
+
+  const [cookies, setCookie] = useCookies(['revealedDayCards']);
+
+  const handleReveal = (dayNumber) => {
     setRevealed(1);
+    if (typeof cookies.revealedDayCards === 'object' && !cookies.revealedDayCards.includes(dayNumber)) {
+      console.log('asd');
+      const days = [...cookies.revealedDayCards, dayNumber];
+      setCookie('revealedDayCards', days, { expires: new Date('November 10, 2021 03:24:00') });
+    }
   };
 
   const showDayModal = () => {
@@ -123,8 +134,6 @@ const DayCard = ({ front, back, className, isActive, revealed, cardDate }) => {
 
         // modal.current.style.display = 'block';
 
-        console.log(coordinates);
-
         gsap.fromTo(
           modal.current,
           { top, left, width, height, display: 'none', opacity: 0 },
@@ -134,7 +143,7 @@ const DayCard = ({ front, back, className, isActive, revealed, cardDate }) => {
             left: `calc(50% - ${400 / 2}px)`,
             width: '400px',
             height: '450px',
-            display: 'block',
+            display: 'flex',
             opacity: 1,
           }
         );
@@ -152,15 +161,14 @@ const DayCard = ({ front, back, className, isActive, revealed, cardDate }) => {
     }
   };
 
-  const handleClick = () => {
-    handleReveal();
+  const handleClick = (dayNumber) => {
+    handleReveal(dayNumber);
     showDayModal();
   };
 
   const transformDateToString = (date) =>
     `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear().toString().slice(2, 4)}`;
 
-  console.log(new Date());
   const isToday = transformDateToString(new Date()) === transformDateToString(cardDate) ? 1 : 0;
 
   // console.log(transformDateToString(new Date()), transformDateToString(cardDate));
@@ -176,17 +184,25 @@ const DayCard = ({ front, back, className, isActive, revealed, cardDate }) => {
         isActive={isActive || isToday}
         className={className}
         isRevealed={isRevealed}
-        onClick={isActive || isToday ? () => handleClick() : null}
+        onClick={isActive || isToday ? () => handleClick(id) : null}
       >
         <StyledCard isActive={isActive || isToday}>
           <StyledFrontSide>
-            {front}
+            {id}
             <span>{transformDateToString(cardDate)}</span>
           </StyledFrontSide>
-          <StyledBackSide>{back}</StyledBackSide>
+          <StyledBackSide>{type}</StyledBackSide>
         </StyledCard>
       </StyledDayCardContainer>
-      <Modal ref={modal} isModalVisible={isModalVisible} showDayModal={isActive || isToday ? showDayModal : null} />
+      <Modal
+        ref={modal}
+        correctAnswer={correctAnswer}
+        isModalVisible={isModalVisible}
+        showDayModal={isActive || isToday ? showDayModal : null}
+        dayNumber={id}
+      >
+        {content}
+      </Modal>
       <StyledModalBackground
         onClick={isActive || isToday ? () => showDayModal() : null}
         isModalVisible={isModalVisible}

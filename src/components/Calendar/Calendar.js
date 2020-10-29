@@ -1,14 +1,16 @@
 import React, { useEffect, useRef } from 'react';
+import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
 import DayCard from './DayCard/DayCard';
 import { tasks } from './../../data/tasks';
 import { gsap } from 'gsap';
 
 const activeDay = 14;
-const revealedDayCards = [1, 2, 6, 10, 12];
 
 const firstDay = `Nov 29, 2020`;
 const beginDate = new Date(firstDay);
+
+console.log(tasks);
 
 // alert(currentDate.getDay(), currentDate.getDate(), currentDate.getFullYear());
 
@@ -19,6 +21,16 @@ const StyledCalendar = styled.div`
   height: 100%;
   padding: 20px;
   grid-gap: 20px;
+
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+
+    & > * {
+      height: 200px;
+      width: 100%;
+    }
+  }
 
   & > .card1 {
     grid-area: 1 / 1 / 2 / 2;
@@ -96,6 +108,12 @@ const StyledCalendar = styled.div`
 
 const Calendar = () => {
   const wrapper = useRef(null);
+  const [cookies, setCookie] = useCookies(['revealedDayCards']);
+
+  const revealedDayCards = cookies.revealedDayCards ? cookies.revealedDayCards : [];
+
+  if (!cookies.revealedDayCards) setCookie('revealedDayCards', []);
+  if (!cookies.correctAnswersCards) setCookie('correctAnswersCards', []);
 
   useEffect(() => {
     const dayCards = Array.from(wrapper.current.children);
@@ -118,18 +136,17 @@ const Calendar = () => {
           const cardDate = new Date(beginDate);
           cardDate.setDate(beginDate.getDate() + i);
 
-          console.log(cardDate);
-
           return (
             <DayCard
               key={'card' + i + 1}
-              front={day.dayNumber}
+              front={day.id}
               back='JS'
-              className={`card${day.dayNumber}`}
+              className={`card${day.id}`}
               isActive={isRevealed ? true : null}
               // isActive={i <= activeDay - 1 ? null : null}
               revealed={isRevealed ? true : null}
               cardDate={cardDate}
+              taskData={day}
             />
           );
         })}
