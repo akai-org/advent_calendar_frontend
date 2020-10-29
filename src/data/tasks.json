@@ -1,34 +1,56 @@
 {
   "tasks": [
-    { "id": 1, "type": "JS", "fullType": "JavaScript", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 2, "type": "PY", "fullType": "Python", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 3, "type": "Math", "fullType": "Matematyka", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 4, "type": "JS", "fullType": "JS", "content": "2 + 2", "correctAnswer": 4 },
+    {
+      "id": 1,
+      "type": "JS",
+      "fullType": "JavaScript",
+      "content": "2 + 2",
+      "correctAnswer": 4,
+      "taskDay": "November 29, 2020"
+    },
+    {
+      "id": 2,
+      "type": "PY",
+      "fullType": "Python",
+      "content": "2 + 2",
+      "correctAnswer": 4,
+      "taskDay": "November 30, 2020"
+    },
+    {
+      "id": 3,
+      "type": "Math",
+      "fullType": "Matematyka",
+      "content": "2 + 2",
+      "correctAnswer": 4,
+      "taskDay": "December 1, 2020"
+    },
+    { "id": 4, "type": "JS", "fullType": "JS", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 2, 2020" },
     {
       "id": 5,
       "type": "HTML",
       "fullType": "HTML",
       "content": "Podaj nazwę głównego elementu blokowego w HTML",
-      "correctAnswer": "div"
+      "correctAnswer": "div",
+      "taskDay": "December 3, 2020"
     },
-    { "id": 6, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 7, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 8, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 9, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 10, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 11, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 12, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 13, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 14, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 15, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 16, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 17, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 18, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 19, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 20, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 21, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 22, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 23, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 },
-    { "id": 24, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4 }
+    { "id": 6, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 4, 2020" },
+    { "id": 7, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 5, 2020" },
+    { "id": 8, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 6, 2020" },
+    { "id": 9, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 7, 2020" },
+    { "id": 10, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 8, 2020" },
+    { "id": 11, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 9, 2020" },
+    { "id": 12, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 10, 2020" },
+    { "id": 13, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 11, 2020" },
+    { "id": 14, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 12, 2020" },
+    { "id": 15, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 13, 2020" },
+    { "id": 16, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 14, 2020" },
+    { "id": 17, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 15, 2020" },
+    { "id": 18, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 16, 2020" },
+    { "id": 19, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 17, 2020" },
+    { "id": 20, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 18, 2020" },
+    { "id": 21, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 19, 2020" },
+    { "id": 22, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 20, 2020" },
+    { "id": 23, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 21, 2020" },
+    { "id": 24, "type": "JS", "fullType": "", "content": "2 + 2", "correctAnswer": 4, "taskDay": "December 22, 2020" }
   ]
 }
