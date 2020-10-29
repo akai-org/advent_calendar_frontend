@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import Modal from 'components/Modal/Modal';
 // import StyledModal from 'components/Modal/Modal';
 
+export const transformDateToString = (date) =>
+  `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear().toString().slice(2, 4)}`;
+
 const StyledDayCardContainer = styled.div`
   background-color: transparent;
   perspective: 1000px;
@@ -165,9 +168,6 @@ const DayCard = ({ className, isActive, revealed, cardDate, taskData }) => {
     handleReveal(dayNumber);
     showDayModal();
   };
-
-  const transformDateToString = (date) =>
-    `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear().toString().slice(2, 4)}`;
 
   const isToday = transformDateToString(new Date()) === transformDateToString(cardDate) ? 1 : 0;
 

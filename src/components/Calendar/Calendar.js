@@ -4,13 +4,43 @@ import styled from 'styled-components';
 import DayCard from './DayCard/DayCard';
 import { tasks } from './../../data/tasks';
 import { gsap } from 'gsap';
+import currentDate from 'data/currentDate';
+import { transformDateToString } from 'components/Calendar/DayCard/DayCard';
 
-const activeDay = 14;
+const today = currentDate;
+let activeDay = 14,
+  previousDays;
+
+console.log(today);
+
+// console.log(transformDateToString(currentDate));
+
+fetch('https://run.mocky.io/v3/d3ffc5d3-7ad1-4a20-9545-61b698690c6c', {
+  method: 'POST',
+  body: {
+    tasks,
+  },
+})
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    // activeDay = data.tasks.filter((day) => day.id === activeDay)[0].id;
+    activeDay = data.tasks.filter((day) => {
+      return transformDateToString(new Date(day.taskDay)) === transformDateToString(new Date(today()));
+    });
+
+    activeDay = activeDay[0] ? activeDay[0].id : null;
+
+    console.log(activeDay);
+    previousDays = data.tasks.filter((day) => day.id <= activeDay);
+    console.log(previousDays);
+  });
 
 const firstDay = `Nov 29, 2020`;
 const beginDate = new Date(firstDay);
 
-console.log(tasks);
+// console.log(previousDays);
 
 // alert(currentDate.getDay(), currentDate.getDate(), currentDate.getFullYear());
 
@@ -133,8 +163,8 @@ const Calendar = () => {
         {tasks.map((day, i) => {
           const isRevealed = revealedDayCards.includes(i + 1);
 
-          const cardDate = new Date(beginDate);
-          cardDate.setDate(beginDate.getDate() + i);
+          const cardDate = new Date(day.taskDay);
+          // cardDate.setDate(beginDate.getDate() + i);
 
           return (
             <DayCard
