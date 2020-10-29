@@ -10,8 +10,11 @@ const StyledAppWrapper = styled.main`
   height: 100vh;
   background-color: #212559;
   position: relative;
-
   overflow: hidden;
+
+  @media (max-width: 1024px) {
+    height: auto;
+  }
 `;
 
 const App = () => {
