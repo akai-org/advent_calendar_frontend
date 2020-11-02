@@ -6,11 +6,9 @@ import StyledCloseButton from './CloseButton.styled';
 // import { ReactComponent as Trees } from 'assets/svg/trees.svg';
 
 const StyledModal = styled.div`
-  position: absolute;
-  background: powderblue;
-  z-index: 20;
-  border-radius: 10px;
-  /* opacity: ${({ isModalVisible }) => (isModalVisible ? '1' : '0')}; */
+  position: fixed;
+  background: #cccccc;
+  z-index: 40;
   overflow: hidden;
   display: none;
   justify-content: center;
@@ -20,8 +18,30 @@ const StyledModal = styled.div`
   text-align: center;
   padding: 0 30px;
 
+  height: 700px;
+  width: 600px;
+
+  top: calc(50% - 350px);
+  left: calc(50% - 300px);
+
+  @media (max-width: 1024px) {
+    width: 90vw !important;
+    height: 80vh !important;
+    padding: 10px 15px;
+
+    left: calc(50% - 45vw);
+    top: calc(50% - 40vh);
+
+    text-align: center;
+
+    h4,
+    h2 {
+      margin: 0 5px;
+    }
+  }
+
   & .check-mark-icon {
-    fill: green;
+    fill: #ffd259;
     animation: check-appear 1000ms ease-in-out;
     transform-origin: bottom;
     height: 50px;

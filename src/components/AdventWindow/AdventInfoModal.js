@@ -5,18 +5,18 @@ import gsap from 'gsap/gsap-core';
 
 const StyledAdventInfoModal = styled.div`
   display: ${({ isModalVisible }) => (isModalVisible ? 'flex' : 'none')};
-  position: absolute;
-  width: 500px;
-  height: 600px;
-  background-color: powderblue;
-  left: calc(50% - 250px);
-  top: calc(50% - 300px);
+  position: fixed;
+  width: 30vw;
+  height: 50vh;
+  background-color: #cccccc;
+  left: calc(50% - 15vw);
+  top: calc(50% - 25vh);
   z-index: 30;
   flex-direction: column;
   /* justify-content: center; */
   align-items: center;
   padding: 20px 50px;
-
+  font-size: 1.5rem;
   animation: appear 600ms ease-in-out;
 
   @keyframes appear {
@@ -27,6 +27,22 @@ const StyledAdventInfoModal = styled.div`
     100% {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    width: 90vw;
+    height: 80vh;
+    padding: 10px 15px;
+
+    left: calc(50% - 45vw);
+    top: calc(50% - 40vh);
+
+    text-align: center;
+
+    h4,
+    h2 {
+      margin: 0 5px;
     }
   }
 `;
@@ -51,7 +67,7 @@ const AdventInfoModal = ({ isModalVisible, setModalVisible }) => {
   return (
     <StyledAdventInfoModal ref={modal} isModalVisible={isModalVisible}>
       <StyledCloseButton />
-      <h2>Kalendarz Adwnetowy by AKAI</h2>
+      <h2>Kalendarz Adwentowy by AKAI</h2>
       <h4>Edycja 2020</h4>
       <p class='info-modal-paragraph'>
         Cześć! Kalendarz adwentowy czeka z nowymi wyzwaniami. Codzienne zadania programistyczne (ale nie tylko) przez

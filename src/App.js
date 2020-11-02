@@ -4,13 +4,21 @@ import React from 'react';
 import styled from 'styled-components';
 import GlobalStyle from './theme/GlobalStyle/GlobalStyle';
 import AdventWindow from 'components/AdventWindow/AdventWindow';
+import WelcomeWindow from 'components/WelcomeWindow/WelcomeWindow';
+import Down from 'assets/svg/down.svg';
 
 const StyledAppWrapper = styled.main`
-  width: 100vw;
-  height: 100vh;
-  background-color: #212559;
+  width: 100%;
+  /* height: 100vh; */
+  background-color: transparent;
   position: relative;
   overflow: hidden;
+
+  .santa-down {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+  }
 
   @media (max-width: 1024px) {
     height: auto;
@@ -20,10 +28,12 @@ const StyledAppWrapper = styled.main`
 const App = () => {
   return (
     <StyledAppWrapper>
-      <AdventWindow />
+      <WelcomeWindow />
+      {/* <AdventWindow /> */}
       <GlobalStyle />
       {/* <Header>Kalendarz adwentowy</Header> */}
       <Calendar />
+      <img src={Down} alt='down' className='santa-down' />
     </StyledAppWrapper>
   );
 };

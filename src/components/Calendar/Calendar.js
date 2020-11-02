@@ -40,21 +40,20 @@ fetch('https://run.mocky.io/v3/d3ffc5d3-7ad1-4a20-9545-61b698690c6c', {
 const firstDay = `Nov 29, 2020`;
 const beginDate = new Date(firstDay);
 
-// console.log(previousDays);
-
-// alert(currentDate.getDay(), currentDate.getDate(), currentDate.getFullYear());
-
 const StyledCalendar = styled.div`
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(6, 1fr);
-  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  /* grid-template-rows: repeat(5, 1fr); */
+  /* height: 90vh; */
+  width: 70vw;
   padding: 20px;
-  grid-gap: 20px;
+  margin: 500px auto;
 
   @media (max-width: 1024px) {
     display: flex;
     flex-direction: column;
+    margin: 250px auto;
 
     & > * {
       height: 200px;
@@ -62,7 +61,7 @@ const StyledCalendar = styled.div`
     }
   }
 
-  & > .card1 {
+  /* & > .card1 {
     grid-area: 1 / 1 / 2 / 2;
   }
   & > .card2 {
@@ -133,7 +132,7 @@ const StyledCalendar = styled.div`
   }
   & > .card24 {
     grid-area: 2 / 1 / 3 / 2;
-  }
+  } */
 `;
 
 const Calendar = () => {
@@ -159,7 +158,7 @@ const Calendar = () => {
 
   return (
     <>
-      <StyledCalendar ref={wrapper}>
+      <StyledCalendar ref={wrapper} id='calendar'>
         {tasks.map((day, i) => {
           const isRevealed = revealedDayCards.includes(i + 1);
 
@@ -177,6 +176,7 @@ const Calendar = () => {
               revealed={isRevealed ? true : null}
               cardDate={cardDate}
               taskData={day}
+              icon={`/src/assets/svg/days/${i + 1}.svg`}
             />
           );
         })}

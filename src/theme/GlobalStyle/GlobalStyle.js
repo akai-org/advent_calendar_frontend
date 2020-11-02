@@ -7,19 +7,20 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        font-family: 'Mountains of Christmas', cursive;
+        font-family: 'Noto Serif', serif;
+        scroll-behavior: smooth;
     }
     html,
     body {
         margin: 0;
         padding: 0;
+        background-color: #ffd259;
     }
     html {
         font-size: 62.5%;
     }
     body {
         font-size: 1.6rem;
-        background: darkcyan;
     }
     a {
         text-decoration: none;
