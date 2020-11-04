@@ -42,7 +42,7 @@ const StyledModal = styled.div`
   }
 
   & .check-mark-icon {
-    fill: #ffd259;
+    fill: green;
     animation: check-appear 1000ms ease-in-out;
     transform-origin: bottom;
     height: 50px;
@@ -62,13 +62,14 @@ const StyledModal = styled.div`
 `;
 
 const Modal = forwardRef(({ isModalVisible, showDayModal, children, correctAnswer, dayNumber }, ref) => {
-  const [cookies, setCookie] = useCookies(['correctAnswersCards']);
+  const [cookies, setCookie] = useCookies(['completedDaysCards']);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (e.target.children[0].value === correctAnswer.toString()) {
-      const days = cookies.correctAnswersCards ? [...cookies.correctAnswersCards, dayNumber] : [dayNumber];
-      setCookie('correctAnswersCards', days, { expires: new Date('November 10, 2021 03:24:00') });
+      const days = cookies.completedDayCards ? [...cookies.completedDayCards, dayNumber] : [dayNumber];
+      setCookie('completedDayCards', days, { expires: new Date('November 10, 2021 03:24:00') });
+      // console.log(cookies.co);
     }
   };
 
@@ -76,7 +77,7 @@ const Modal = forwardRef(({ isModalVisible, showDayModal, children, correctAnswe
     <StyledModal ref={ref} isModalVisible={isModalVisible}>
       <StyledCloseButton onClick={() => showDayModal()} />
       {children}
-      {!cookies.correctAnswersCards.includes(dayNumber) ? (
+      {!cookies.completedDayCards.includes(dayNumber) ? (
         <form action='' onSubmit={(e, dayNumber) => handleSubmit(e, dayNumber)}>
           <input type='text' />
         </form>

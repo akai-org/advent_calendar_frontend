@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useCookies } from 'react-cookie';
 import { transformDateToString } from 'components/Calendar/DayCard/DayCard';
@@ -11,24 +11,6 @@ import { tasks } from '../../data/tasks.json';
 // let activeDay = 14;
 // let previousDays;
 
-fetch('https://run.mocky.io/v3/d3ffc5d3-7ad1-4a20-9545-61b698690c6c', {
-  method: 'POST',
-  body: {
-    tasks,
-  },
-})
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    const activeDay = data.tasks.filter((day) => {
-      return transformDateToString(new Date(day.taskDay)) === transformDateToString(currentDate);
-    });
-
-    const dateToCheck = activeDay[0] ? activeDay[0].id : null;
-    const previousDays = data.tasks.filter((day) => day.id <= dateToCheck);
-  });
-
 // const firstDay = `Nov 29, 2020`;
 // const beginDate = new Date(firstDay);
 
@@ -38,28 +20,26 @@ const StyledCalendar = styled.div`
   flex-wrap: wrap;
   width: 70vw;
   padding: 20px;
-  margin: 500px auto;
+  margin: 500px auto 600px;
 
   @media (max-width: 1024px) {
     display: flex;
     flex-direction: column;
     margin: 250px auto;
-
-    & > * {
-      height: 200px;
-      width: 100%;
-    }
+    width: fit-content;
   }
 `;
 
 const Calendar = () => {
+  const [taskData, settaskData] = useState(null);
   const wrapper = useRef(null);
   const [cookies, setCookie] = useCookies(['revealedDayCards']);
 
   const revealedDayCards = cookies.revealedDayCards ? cookies.revealedDayCards : [];
+  const completedDayCards = cookies.completedDayCards ? cookies.completedDayCards : [];
 
   if (!cookies.revealedDayCards) setCookie('revealedDayCards', []);
-  if (!cookies.correctAnswersCards) setCookie('correctAnswersCards', []);
+  if (!cookies.completedDaysCards) setCookie('completedDaysCards', []);
 
   useEffect(() => {
     const dayCards = Array.from(wrapper.current.children);
@@ -71,26 +51,54 @@ const Calendar = () => {
         { duration: 1, delay: i * 0.05, opacity: 1, transform: 'translateY(0)' }
       );
     });
+
+    fetch('https://run.mocky.io/v3/d9b95880-8324-422d-9a6b-ce787c4d0566', {
+      method: 'POST',
+      body: { tasks },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        const activeDay = data.tasks.filter((day) => {
+          return transformDateToString(new Date(day.taskDay)) === transformDateToString(currentDate);
+        });
+
+        // taskData = data.tasks;
+        settaskData(data.tasks);
+        const dateToCheck = activeDay[0] ? activeDay[0].id : null;
+        const previousDays = data.tasks.filter((day) => day.id <= dateToCheck);
+      });
   }, []);
+
+  console.log(revealedDayCards);
+
+  if (taskData)
+    return (
+      <StyledCalendar ref={wrapper} id='calendar'>
+        {taskData.map((day, i) => {
+          const isRevealed = revealedDayCards.includes(i + 1);
+          const isCompleted = completedDayCards.includes(i + 1);
+
+          const cardDate = new Date(day.taskDay);
+
+          return (
+            <DayCard
+              key={day.id}
+              isActive={isRevealed ? true : null}
+              isRevealed={isRevealed ? true : null}
+              isCompleted={isCompleted ? true : null}
+              cardDate={cardDate}
+              taskData={day}
+            />
+          );
+        })}
+      </StyledCalendar>
+    );
 
   return (
     <StyledCalendar ref={wrapper} id='calendar'>
-      {tasks.map((day, i) => {
-        const isRevealed = revealedDayCards.includes(i + 1);
-
-        const cardDate = new Date(day.taskDay);
-        // cardDate.setDate(beginDate.getDate() + i);
-
-        return (
-          <DayCard
-            key={day.id}
-            isActive={isRevealed ? true : null}
-            revealed={isRevealed ? true : null}
-            cardDate={cardDate}
-            taskData={day}
-          />
-        );
-      })}
+      Wait...
     </StyledCalendar>
   );
 };

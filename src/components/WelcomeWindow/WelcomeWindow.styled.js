@@ -12,7 +12,7 @@ const StyledWelcomeWindow = styled.header`
   }
 
   .santa-claus {
-    width: 1000px;
+    width: 52vw;
     top: 130px;
     left: 100px;
     z-index: 10;
@@ -24,9 +24,9 @@ const StyledWelcomeWindow = styled.header`
     }
 
     @media (max-width: 1024px) {
-      width: 320px;
+      width: 360px;
       left: 20px;
-      top: 65vh;
+      top: 55vh;
     }
   }
 
