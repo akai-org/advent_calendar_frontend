@@ -1,16 +1,12 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "airbnb",
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "prettier/react",
-    "prettier"
-  ],
+  "extends": ["airbnb", "eslint:recommended", "plugin:react/recommended", "prettier/react", "prettier"],
   "plugins": ["react", "jsx-a11y", "import"],
   "globals": {
     "widndow": true,
-    "document": true
+    "document": true,
+    "fetch": true,
+    "require": true
   },
   "settings": {
     "import/resolver": {
@@ -21,6 +17,8 @@
     }
   },
   "rules": {
-    "react/jsx-filename-extension": 0
+    "react/jsx-filename-extension": 0,
+    "import/no-dynamic-require": 0,
+    "global-require": 0
   }
 }

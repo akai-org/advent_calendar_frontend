@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Tree } from 'assets/svg/christmas_tree.svg';
 import { ReactComponent as Trees } from 'assets/svg/trees.svg';
@@ -81,15 +81,15 @@ const AdventWindow = () => {
       <StyledAdventWindow>
         <div>
           Kalendarz Adwentowy
-          <span class='info'>
+          <span className='info'>
             Created by
-            <a href='https://akai.org.pl' class='info-icon'>
+            <a href='https://akai.org.pl' className='info-icon'>
               <AkaiLogo />
             </a>
-            <QuestionMark class='info-icon' onClick={() => setModalVisible(1)} />
+            <QuestionMark className='info-icon' onClick={() => setModalVisible(1)} />
           </span>
-          <Tree class='svg-1' />
-          <Trees class='svg-2' />
+          <Tree className='svg-1' />
+          <Trees className='svg-2' />
         </div>
       </StyledAdventWindow>
       <AdventInfoModal isModalVisible={isModalVisible} setModalVisible={setModalVisible} />

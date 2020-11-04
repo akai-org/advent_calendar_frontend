@@ -1,7 +1,8 @@
 import React, { forwardRef } from 'react';
 import { useCookies } from 'react-cookie';
 import styled from 'styled-components';
-import { ReactComponent as CheckMark } from './../../assets/svg/checkmark.svg';
+import propTypes from 'prop-types';
+import { ReactComponent as CheckMark } from '../../assets/svg/checkmark.svg';
 import StyledCloseButton from './CloseButton.styled';
 // import { ReactComponent as Trees } from 'assets/svg/trees.svg';
 
@@ -65,7 +66,6 @@ const Modal = forwardRef(({ isModalVisible, showDayModal, children, correctAnswe
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(cookies.correctAnswersCards, dayNumber);
     if (e.target.children[0].value === correctAnswer.toString()) {
       const days = cookies.correctAnswersCards ? [...cookies.correctAnswersCards, dayNumber] : [dayNumber];
       setCookie('correctAnswersCards', days, { expires: new Date('November 10, 2021 03:24:00') });
@@ -86,5 +86,14 @@ const Modal = forwardRef(({ isModalVisible, showDayModal, children, correctAnswe
     </StyledModal>
   );
 });
+
+Modal.displayName = 'Modal';
+Modal.propTypes = {
+  isModalVisible: propTypes.bool.isRequired,
+  showDayModal: propTypes.func.isRequired,
+  children: propTypes.element.isRequired,
+  correctAnswer: propTypes.element.isRequired,
+  dayNumber: propTypes.number.isRequired,
+};
 
 export default Modal;

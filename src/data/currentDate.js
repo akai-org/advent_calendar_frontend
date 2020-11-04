@@ -1,1 +1,1 @@
-export default () => new Date();
+export default new Date();

@@ -1,9 +1,9 @@
-import React, { Suspense, useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import gsap from 'gsap';
 import styled from 'styled-components';
 import Modal from 'components/Modal/Modal';
-import asd from 'assets/svg/days/1.svg';
+import propTypes from 'prop-types';
 // import StyledModal from 'components/Modal/Modal';
 
 export const transformDateToString = (date) =>
@@ -89,24 +89,21 @@ const StyledModalBackground = styled.div`
 
 // const loadImage = (id) => {};
 
-const DayCard = ({ className, isActive, revealed, cardDate, taskData, icon }) => {
-  console.log(icon);
-
+const DayCard = ({ isActive, revealed, cardDate, taskData }) => {
   const card = useRef(null);
   const modal = useRef(null);
 
   const [isRevealed, setRevealed] = useState(0);
   const [isModalVisible, setModalVisible] = useState(0);
-  const [coordinates, setCoordinates] = useState();
 
   const { id, type, content, correctAnswer } = taskData;
-
   const [cookies, setCookie] = useCookies(['revealedDayCards']);
+
+  const dayImage = require(`../../../assets/svg/days/${id}.svg`);
 
   const handleReveal = (dayNumber) => {
     setRevealed(1);
     if (typeof cookies.revealedDayCards === 'object' && !cookies.revealedDayCards.includes(dayNumber)) {
-      console.log('asd');
       const days = [...cookies.revealedDayCards, dayNumber];
       setCookie('revealedDayCards', days, { expires: new Date('November 10, 2021 03:24:00') });
     }
@@ -117,13 +114,6 @@ const DayCard = ({ className, isActive, revealed, cardDate, taskData, icon }) =>
       card.current.style.opacity = 0;
 
       if (!isModalVisible) {
-        setCoordinates(card.current.getBoundingClientRect());
-        const { top, left, height, width } = coordinates ? coordinates : card.current.getBoundingClientRect();
-
-        console.log(coordinates);
-
-        // modal.current.style.display = 'block';
-
         gsap.fromTo(
           modal.current,
           { display: 'none', opacity: 0 },
@@ -136,7 +126,6 @@ const DayCard = ({ className, isActive, revealed, cardDate, taskData, icon }) =>
         setModalVisible(1);
       } else {
         card.current.style.opacity = 1;
-        const { top, left, height, width } = coordinates;
 
         gsap.to(modal.current, { duration: 0.8, opacity: 0 });
         gsap.to(modal.current, { display: 'none' });
@@ -164,14 +153,13 @@ const DayCard = ({ className, isActive, revealed, cardDate, taskData, icon }) =>
       <StyledDayCardContainer
         ref={card}
         isActive={isActive || isToday}
-        className={className}
         isRevealed={isRevealed}
-        onClick={isActive || isToday ? () => handleClick(id) : null}
-        // onClick={() => handleClick(id)}
+        // onClick={isActive || isToday ? () => handleClick(id) : null}
+        onClick={() => handleClick(id)}
       >
         <StyledCard isActive={isActive || isToday}>
-          <StyledFrontSide icon={icon}>
-            <img src={require(`../../../assets/svg/days/${id}.svg`)} alt='icon' />
+          <StyledFrontSide>
+            <img src={dayImage} alt='icon' />
             {id}
             <span>{transformDateToString(cardDate)}</span>
           </StyledFrontSide>
@@ -196,3 +184,15 @@ const DayCard = ({ className, isActive, revealed, cardDate, taskData, icon }) =>
 };
 
 export default DayCard;
+
+DayCard.propTypes = {
+  isActive: propTypes.bool.isRequired,
+  revealed: propTypes.bool.isRequired,
+  cardDate: propTypes.func.isRequired,
+  taskData: propTypes.shape({
+    id: propTypes.number.isRequired,
+    type: propTypes.string.isRequired,
+    content: propTypes.string.isRequired,
+    correctAnswer: propTypes.string.isRequired,
+  }).isRequired,
+};

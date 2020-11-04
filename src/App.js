@@ -1,11 +1,9 @@
 import Calendar from 'components/Calendar/Calendar';
-import Header from 'components/Header';
 import React from 'react';
 import styled from 'styled-components';
-import GlobalStyle from './theme/GlobalStyle/GlobalStyle';
-import AdventWindow from 'components/AdventWindow/AdventWindow';
 import WelcomeWindow from 'components/WelcomeWindow/WelcomeWindow';
 import Down from 'assets/svg/down.svg';
+import GlobalStyle from './theme/GlobalStyle/GlobalStyle';
 
 const StyledAppWrapper = styled.main`
   width: 100%;

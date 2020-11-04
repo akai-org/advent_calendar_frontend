@@ -17,9 +17,9 @@ const WelcomeWindow = () => {
           <span className='page-header-textx'>
             Kalendarz Adwentowy <br /> Programisty <br />
           </span>
-          <span class='info'>
+          <span className='info'>
             Designed and created by
-            <a href='https://akai.org.pl' class='info-icon'>
+            <a href='https://akai.org.pl' className='info-icon'>
               <AkaiLogo />
             </a>
             <QuestionMark class='info-icon' onClick={() => setModalVisible(1)} />
