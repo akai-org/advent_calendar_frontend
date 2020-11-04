@@ -176,7 +176,6 @@ const Calendar = () => {
               revealed={isRevealed ? true : null}
               cardDate={cardDate}
               taskData={day}
-              icon={`/src/assets/svg/days/${i + 1}.svg`}
             />
           );
         })}

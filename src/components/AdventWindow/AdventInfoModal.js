@@ -1,16 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import StyledCloseButton from 'components/Modal/CloseButton.styled';
-import gsap from 'gsap/gsap-core';
+import propTypes from 'prop-types';
 
 const StyledAdventInfoModal = styled.div`
   display: ${({ isModalVisible }) => (isModalVisible ? 'flex' : 'none')};
   position: fixed;
   width: 30vw;
-  height: 50vh;
+  max-height: 90vh;
   background-color: #cccccc;
   left: calc(50% - 15vw);
-  top: calc(50% - 25vh);
+  /* top: calc(50% - 25vh); */
+  top: 10vh;
   z-index: 30;
   flex-direction: column;
   /* justify-content: center; */
@@ -66,7 +67,7 @@ const AdventInfoModal = ({ isModalVisible, setModalVisible }) => {
 
   return (
     <StyledAdventInfoModal ref={modal} isModalVisible={isModalVisible}>
-      <StyledCloseButton />
+      <StyledCloseButton onClick={() => setModalVisible(!isModalVisible)} />
       <h2>Kalendarz Adwentowy by AKAI</h2>
       <h4>Edycja 2020</h4>
       <p class='info-modal-paragraph'>
@@ -87,6 +88,11 @@ const AdventInfoModal = ({ isModalVisible, setModalVisible }) => {
       </p>
     </StyledAdventInfoModal>
   );
+};
+
+AdventInfoModal.propTypes = {
+  isModalVisible: propTypes.bool.isRequired,
+  setModalVisible: propTypes.func.isRequired,
 };
 
 export default AdventInfoModal;

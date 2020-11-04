@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { Suspense, useState, useRef, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import gsap from 'gsap';
 import styled from 'styled-components';
@@ -85,7 +85,13 @@ const StyledModalBackground = styled.div`
   left: 0;
 `;
 
+// const ProfilePage = React.lazy(() => import('./ProfilePage'));
+
+// const loadImage = (id) => {};
+
 const DayCard = ({ className, isActive, revealed, cardDate, taskData, icon }) => {
+  console.log(icon);
+
   const card = useRef(null);
   const modal = useRef(null);
 
@@ -160,12 +166,12 @@ const DayCard = ({ className, isActive, revealed, cardDate, taskData, icon }) =>
         isActive={isActive || isToday}
         className={className}
         isRevealed={isRevealed}
-        // onClick={isActive || isToday ? () => handleClick(id) : null}
-        onClick={() => handleClick(id)}
+        onClick={isActive || isToday ? () => handleClick(id) : null}
+        // onClick={() => handleClick(id)}
       >
         <StyledCard isActive={isActive || isToday}>
           <StyledFrontSide icon={icon}>
-            <img src={asd} alt='icon' />
+            <img src={require(`../../../assets/svg/days/${id}.svg`)} alt='icon' />
             {id}
             <span>{transformDateToString(cardDate)}</span>
           </StyledFrontSide>
@@ -182,7 +188,6 @@ const DayCard = ({ className, isActive, revealed, cardDate, taskData, icon }) =>
         {content}
       </Modal>
       <StyledModalBackground
-        // onClick={isActive || isToday ? () => showDayModal() : null}
         onClick={isActive || isToday ? () => showDayModal() : null}
         isModalVisible={isModalVisible}
       />
