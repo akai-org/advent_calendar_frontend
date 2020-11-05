@@ -92,9 +92,9 @@ const DayCard = ({ isActive, isRevealed, cardDate, taskData, isCompleted }) => {
         isModalVisible={isModalVisible}
         showDayModal={isActive || isToday ? showDayModal : null}
         dayNumber={id}
-      >
-        {content}
-      </Modal>
+        date={transformDateToString(cardDate)}
+        content={content}
+      />
       <Styled.StyledModalBackground
         onClick={isActive || isToday ? () => showDayModal() : null}
         isModalVisible={isModalVisible}

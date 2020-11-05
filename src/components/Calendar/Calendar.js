@@ -5,7 +5,6 @@ import { transformDateToString } from 'components/Calendar/DayCard/DayCard';
 import { gsap } from 'gsap';
 import currentDate from 'data/currentDate';
 import DayCard from './DayCard/DayCard';
-import { tasks } from '../../data/tasks.json';
 
 // const today = currentDate;
 // let activeDay = 14;
@@ -39,7 +38,9 @@ const Calendar = () => {
   const completedDayCards = cookies.completedDayCards ? cookies.completedDayCards : [];
 
   if (!cookies.revealedDayCards) setCookie('revealedDayCards', []);
-  if (!cookies.completedDaysCards) setCookie('completedDaysCards', []);
+  if (!cookies.completedDayCards) setCookie('completedDayCards', []);
+
+  // alert(cookies.revealedDayCards[0]);
 
   useEffect(() => {
     const dayCards = Array.from(wrapper.current.children);
@@ -52,9 +53,9 @@ const Calendar = () => {
       );
     });
 
-    fetch('https://run.mocky.io/v3/d9b95880-8324-422d-9a6b-ce787c4d0566', {
+    fetch('https://run.mocky.io/v3/a30eece5-9c60-4d46-a327-923da2e32069', {
       method: 'POST',
-      body: { tasks },
+      body: { tasks: [{ id: 1 }] },
     })
       .then((response) => {
         return response.json();
@@ -70,8 +71,6 @@ const Calendar = () => {
         const previousDays = data.tasks.filter((day) => day.id <= dateToCheck);
       });
   }, []);
-
-  console.log(revealedDayCards);
 
   if (taskData)
     return (
