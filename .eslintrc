@@ -6,7 +6,8 @@
     "widndow": true,
     "document": true,
     "fetch": true,
-    "require": true
+    "require": true,
+    "alert", :true
   },
   "settings": {
     "import/resolver": {
@@ -19,6 +20,7 @@
   "rules": {
     "react/jsx-filename-extension": 0,
     "import/no-dynamic-require": 0,
-    "global-require": 0
+    "global-require": 0,
+    "no-alert": 0
   }
 }

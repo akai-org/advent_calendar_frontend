@@ -106,7 +106,6 @@ const Modal = forwardRef(({ isModalVisible, showDayModal, correctAnswer, dayNumb
 
   useEffect(() => {
     contentElement.current.innerHTML = content;
-    console.log(contentElement.current);
   });
 
   const handleSubmit = (e) => {
@@ -114,7 +113,6 @@ const Modal = forwardRef(({ isModalVisible, showDayModal, correctAnswer, dayNumb
     if (e.target.children[0].value === correctAnswer.toString()) {
       const days = cookies.completedDayCards ? [...cookies.completedDayCards, dayNumber] : [dayNumber];
       setCookie('completedDayCards', days, { expires: new Date('November 10, 2021 03:24:00') });
-      // console.log(cookies.co);
     } else {
       alert('wrrrong!!');
     }
@@ -140,9 +138,10 @@ Modal.displayName = 'Modal';
 Modal.propTypes = {
   isModalVisible: propTypes.bool.isRequired,
   showDayModal: propTypes.func.isRequired,
-  children: propTypes.element.isRequired,
   correctAnswer: propTypes.element.isRequired,
   dayNumber: propTypes.number.isRequired,
+  date: propTypes.string.isRequired,
+  content: propTypes.string.isRequired,
 };
 
 export default Modal;
