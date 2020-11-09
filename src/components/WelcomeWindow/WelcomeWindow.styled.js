@@ -96,8 +96,15 @@ const StyledWelcomeWindow = styled.header`
     text-transform: uppercase;
     z-index: 30;
 
+    &-text {
+      margin: 0;
+      font-size: 6rem;
+    }
+
     @media (max-width: 1024px) {
-      font-size: 2rem;
+      &-text {
+        font-size: 2rem;
+      }
     }
   }
 
@@ -109,12 +116,17 @@ const StyledWelcomeWindow = styled.header`
     margin-top: 10px;
 
     & svg {
-      width: 20px;
-      height: 20px;
-      margin-left: 5px;
+      width: 60px;
+      height: 60px;
+      margin-left: 20px;
       cursor: pointer;
 
       fill: #cccccc;
+
+      @media (max-width: 1024px) {
+        width: 25px;
+        height: 25px;
+      }
     }
   }
 

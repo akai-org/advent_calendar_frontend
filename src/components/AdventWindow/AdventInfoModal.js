@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import StyledCloseButton from 'components/Modal/CloseButton.styled';
 import propTypes from 'prop-types';
+import { ReactComponent as Cocard } from 'assets/svg/cocard-2.svg';
 
 const StyledAdventInfoModal = styled.div`
   display: ${({ isModalVisible }) => (isModalVisible ? 'flex' : 'none')};
@@ -10,11 +11,9 @@ const StyledAdventInfoModal = styled.div`
   max-height: 90vh;
   background-color: #cccccc;
   left: calc(50% - 15vw);
-  /* top: calc(50% - 25vh); */
   top: 10vh;
   z-index: 30;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
   padding: 20px 50px;
   font-size: 1.5rem;
@@ -40,6 +39,8 @@ const StyledAdventInfoModal = styled.div`
     top: calc(50% - 40vh);
 
     text-align: center;
+
+    font-size: 1.2rem;
 
     h4,
     h2 {
@@ -68,6 +69,7 @@ const AdventInfoModal = ({ isModalVisible, setModalVisible }) => {
   return (
     <StyledAdventInfoModal ref={modal} isModalVisible={isModalVisible}>
       <StyledCloseButton onClick={() => setModalVisible(!isModalVisible)} />
+      <Cocard />
       <h2>Kalendarz Adwentowy by AKAI</h2>
       <h4>Edycja 2020</h4>
       <p className='info-modal-paragraph'>

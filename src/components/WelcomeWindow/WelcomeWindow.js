@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SantaImage from 'assets/svg/santa.svg';
 import Up from 'assets/svg/up.svg';
-import { ReactComponent as AkaiLogo } from 'assets/svg/logo-color.svg';
+import { ReactComponent as AkaiLogo } from 'assets/svg/arrow-down.svg';
 import { ReactComponent as QuestionMark } from 'assets/svg/question-mark.svg';
 import Footprints from 'assets/svg/footprints.svg';
 import AdventInfoModal from 'components/AdventWindow/AdventInfoModal';
@@ -14,20 +14,16 @@ const WelcomeWindow = () => {
     <>
       <StyledWelcomeWindow>
         <header className='page-header'>
-          <span className='page-header-textx'>
+          <h1 className='page-header-text'>
             Kalendarz Adwentowy <br /> Programisty <br />
-          </span>
+          </h1>
           <span className='info'>
-            Designed and created by
-            <a href='https://akai.org.pl' className='info-icon'>
+            <a href='#calendar' className='info-icon' title='Do kalendarza'>
               <AkaiLogo />
             </a>
-            <QuestionMark class='info-icon' onClick={() => setModalVisible(1)} />
+            <QuestionMark class='info-icon' onClick={() => setModalVisible(1)} title='Zasady' />
           </span>
           <br />
-          <a href='#calendar' className='target-link'>
-            Do kalendarza
-          </a>
         </header>
         <img src={SantaImage} alt='santa-claus' className='santa-claus' />
         <img src={Up} alt='up' className='santa-up' />

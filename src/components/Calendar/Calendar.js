@@ -24,8 +24,11 @@ const StyledCalendar = styled.div`
   @media (max-width: 1024px) {
     display: flex;
     flex-direction: column;
-    margin: 250px auto;
     width: fit-content;
+  }
+
+  @media (max-width: 768px) {
+    margin: 270px auto;
   }
 `;
 
@@ -69,7 +72,7 @@ const Calendar = () => {
         // taskData = data.tasks;
         settaskData(data.tasks);
         const dateToCheck = activeDay[0] ? activeDay[0].id : null;
-        setPreviousDays(data.tasks.filter((day) => day.id <= dateToCheck));
+        setPreviousDays(data.tasks.filter((day) => day.id <= 26));
       });
   }, []);
 
