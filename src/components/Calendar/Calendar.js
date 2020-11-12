@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useCookies } from 'react-cookie';
-import { transformDateToString } from 'components/Calendar/DayCard/DayCard';
 import { gsap } from 'gsap';
-import currentDate from 'data/currentDate';
 import DayCard from './DayCard/DayCard';
 
 // const today = currentDate;
@@ -12,6 +10,21 @@ import DayCard from './DayCard/DayCard';
 
 // const firstDay = `Nov 29, 2020`;
 // const beginDate = new Date(firstDay);
+
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'October',
+  'September',
+  'November',
+  'December',
+];
 
 const StyledCalendar = styled.div`
   display: flex;
@@ -24,24 +37,32 @@ const StyledCalendar = styled.div`
   @media (max-width: 1024px) {
     display: flex;
     flex-direction: column;
-    margin: 250px auto;
     width: fit-content;
+  }
+
+  @media (max-width: 768px) {
+    margin: 270px auto;
   }
 `;
 
+function incDay(date, n) {
+  let fudate = new Date(new Date(date).setDate(new Date(date).getDate() + n));
+  fudate = `${fudate.getFullYear()} - ${fudate.getMonth() + 1} - ${fudate.toDateString().substring(8, 10)}`;
+  return fudate;
+}
+
 const Calendar = () => {
-  const [taskData, settaskData] = useState(null);
-  const [previousDays, setPreviousDays] = useState([]);
+  const [taskData, settaskData] = useState([]);
+  const [taskEmptyData, settaskEmptyData] = useState([]);
   const wrapper = useRef(null);
   const [cookies, setCookie] = useCookies(['revealedDayCards']);
+  const [currentDate, setCurrentDate] = useState(null);
 
   const revealedDayCards = cookies.revealedDayCards ? cookies.revealedDayCards : [];
   const completedDayCards = cookies.completedDayCards ? cookies.completedDayCards : [];
 
   if (!cookies.revealedDayCards) setCookie('revealedDayCards', []);
   if (!cookies.completedDayCards) setCookie('completedDayCards', []);
-
-  // alert(cookies.revealedDayCards[0]);
 
   useEffect(() => {
     const dayCards = Array.from(wrapper.current.children);
@@ -54,59 +75,107 @@ const Calendar = () => {
       );
     });
 
-    fetch('https://run.mocky.io/v3/a30eece5-9c60-4d46-a327-923da2e32069', {
-      method: 'POST',
-      body: { tasks: [{ id: 1 }] },
+    fetch('https://run.mocky.io/v3/002425b5-4d48-47eb-b872-6a08e8563ca2', {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      mode: 'cors',
     })
       .then((response) => {
         return response.json();
       })
-      .then((data) => {
-        const activeDay = data.tasks.filter((day) => {
-          return transformDateToString(new Date(day.taskDay)) === transformDateToString(currentDate);
-        });
+      .then((res2) => {
+        settaskData(res2.tasks);
 
-        // taskData = data.tasks;
-        settaskData(data.tasks);
-        const dateToCheck = activeDay[0] ? activeDay[0].id : null;
-        setPreviousDays(data.tasks.filter((day) => day.id <= dateToCheck));
+        return res2.tasks;
+      })
+      .then((tasks) => {
+        const tasksSize = tasks.length;
+
+        const dateDetailss = tasksSize > 0 ? tasks[tasksSize - 1].taskDate.split('-') : ['2020', '11', '29'];
+        const lastDayDate = new Date(`${months[+dateDetailss[1] - 1]} ${dateDetailss[2]}, ${dateDetailss[0]}`);
+
+        const temp = [];
+
+        for (let i = 0; i < 26 - tasksSize; i += 1) {
+          temp.push({
+            taskDay: tasksSize + i + 1,
+            taskDate: incDay(lastDayDate, i + 1),
+            level: '',
+            category: '',
+          });
+        }
+        settaskEmptyData(temp);
+      });
+
+    fetch('http://api.advent.akai.org.pl/api/today/', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+    })
+      .then((currentFetchedDate) => {
+        return currentFetchedDate.json();
+      })
+      .then((today) => {
+        const dateDetailss = today.today.split('-');
+
+        setCurrentDate(new Date(`${months[+dateDetailss[1] - 1]} ${dateDetailss[2]}, ${dateDetailss[0]}`));
       });
   }, []);
 
-  if (taskData)
+  if (taskData && taskEmptyData && currentDate) {
     return (
       <StyledCalendar ref={wrapper} id='calendar'>
         {taskData.map((day, i) => {
           const isRevealed = revealedDayCards.includes(i + 1);
           const isCompleted = completedDayCards.includes(i + 1);
-          const isAvailable = day === previousDays[i];
 
-          const cardDate = new Date(day.taskDay);
+          const dateDetails = typeof day.taskDate === 'string' ? day.taskDate.split('-') : null;
+
+          const cardDate =
+            typeof day.taskDate === 'string'
+              ? new Date(`${months[+dateDetails[1] - 1]} ${dateDetails[2]}, ${dateDetails[0]}`)
+              : day.taskDate;
 
           return (
             <DayCard
               key={day.id}
-              isActive={isRevealed ? true : null}
-              isRevealed={isRevealed ? true : null}
-              isCompleted={isCompleted ? true : null}
+              isActive={isRevealed}
+              isRevealed={isRevealed}
+              isCompleted={isCompleted}
               cardDate={cardDate}
-              taskData={
-                isAvailable
-                  ? day
-                  : {
-                      id: day.id,
-                      type: day.type,
-                      fullType: day.fullType,
-                      content: '',
-                      correctAnswer: '',
-                      taskDay: day.taskDay,
-                    }
-              }
+              taskData={day}
+              currentDate={currentDate}
+              isAvailable
+            />
+          );
+        })}
+        {taskEmptyData.map((day) => {
+          const dateDetails = typeof day.taskDate === 'string' ? day.taskDate.split('-') : null;
+
+          const cardDate =
+            typeof day.taskDate === 'string'
+              ? new Date(`${months[+dateDetails[1] - 1]} ${dateDetails[2]}, ${dateDetails[0]}`)
+              : day.taskDate;
+
+          return (
+            <DayCard
+              key={day.taskDay}
+              isActive={false}
+              isRevealed={false}
+              isCompleted={false}
+              cardDate={cardDate}
+              taskData={day}
+              currentDate={currentDate}
+              isAvailable={false}
             />
           );
         })}
       </StyledCalendar>
     );
+  }
 
   return (
     <StyledCalendar ref={wrapper} id='calendar'>
