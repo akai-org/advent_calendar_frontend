@@ -7,12 +7,14 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        font-family: Tahoma, Geneva, sans-serif;
+        font-family: 'Noto Serif', serif;
+        scroll-behavior: smooth;
     }
     html,
     body {
         margin: 0;
         padding: 0;
+        background-color: #ffd259;
     }
     html {
         font-size: 62.5%;
@@ -22,21 +24,6 @@ const GlobalStyle = createGlobalStyle`
     }
     a {
         text-decoration: none;
-    }
-    .navside__active__button {
-        & > div {
-            background-color: #f4f6fc;
-            position: relative;
-            &:before {
-                content: '';
-                background-color: #676C7D;
-                left: 0;
-                top: 0;
-                height: 100%;
-                width: 3px;
-                position: absolute;
-            }
-        }
     }
 `;
 

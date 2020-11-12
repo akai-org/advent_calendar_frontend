@@ -1,3 +1,19 @@
+![Kalendarz adwentowy][logo]
+
+Cześć! Kalendarz adwentowy czeka z nowymi wyzwaniami. Codzienne zadania programistyczne (ale nie tylko) przez cały okres trwania adwentu czekają na rozwiązania.
+
+Wracaj tu codziennie, by sprawdzić co na ciebie czeka. Jeżeli w dany dzień klikniesz zadanie, to możesz je rozwiązać później, więc nie martw się jeżeli nie znajdziejsz od razu czasu.
+
+Strona w dużej mierze oparta jest na ciasteczkach, toteż zalecamy, aby nie usuwać ich do końca czasu trwania adwentu. Jeżeli wykonasz wszystkie zadania, czeka cię nagroda.
+
+Projekt wykonany w ramach członkostwa w kole naukowym "Akademickie Koło Aplikacji Internetowych" na Politechnice Poznańskiej. Dowiedz się o nas więcej [tutaj](https://akai.org.pl).
+
+<div>
+Created by <img src="https://github.com/akai-org/akai-assets/blob/master/public/png/logo.png?raw=true" alt="akai" width="50" height="50"/>
+</div>
+
+[logo]: ./src/assets/readme-graphics.png
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
