@@ -9,17 +9,17 @@ import { ReactComponent as CheckMark } from '../../../assets/svg/checkmark.svg';
 export const transformDateToString = (date) =>
   `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear().toString().slice(2, 4)}`;
 
-const DayCard = ({ isActive, isRevealed, cardDate, taskData, isCompleted }) => {
+const DayCard = ({ isActive, isRevealed, cardDate, taskData, isCompleted, currentDate, isAvailable }) => {
   const card = useRef(null);
   const modal = useRef(null);
 
   const [isRevealedState, setRevealedState] = useState(0);
   const [isModalVisible, setModalVisible] = useState(0);
 
-  const { id, type, content, correctAnswer } = taskData;
+  const { taskDay, category, taskContent, level } = taskData;
   const [cookies, setCookie] = useCookies(['revealedDayCards']);
 
-  const dayImage = require(`../../../assets/svg/days/${id}.svg`);
+  const dayImage = require(`../../../assets/svg/days/${taskDay}.svg`);
 
   const handleReveal = (dayNumber) => {
     setRevealedState(1);
@@ -60,7 +60,7 @@ const DayCard = ({ isActive, isRevealed, cardDate, taskData, isCompleted }) => {
     showDayModal();
   };
 
-  const isToday = transformDateToString(new Date()) === transformDateToString(cardDate) ? 1 : 0;
+  const isToday = transformDateToString(currentDate) === transformDateToString(cardDate) ? 1 : 0;
 
   useEffect(() => {
     if (isRevealed) card.current.click();
@@ -72,33 +72,31 @@ const DayCard = ({ isActive, isRevealed, cardDate, taskData, isCompleted }) => {
         ref={card}
         isActive={isActive || isToday}
         isRevealed={isRevealedState}
-        dayNumber={id}
-        onClick={isActive || isToday ? () => handleClick(id) : null}
-        // onClick={() => handleClick(id)}
+        dayNumber={taskDay}
+        onClick={() => handleClick(taskDay)}
       >
         <Styled.StyledCard isActive={isActive || isToday}>
           <Styled.StyledFrontSide date={transformDateToString(cardDate)}>
             <img src={dayImage} alt='icon' />
-            {id}
+            {taskDay}
             <span>{transformDateToString(cardDate)}</span>
           </Styled.StyledFrontSide>
-          <Styled.StyledBackSide>{type}</Styled.StyledBackSide>
+          <Styled.StyledBackSide>{category}</Styled.StyledBackSide>
         </Styled.StyledCard>
-        {isCompleted ? <CheckMark class='check-mark-icon' /> : null}
+        {isCompleted ? <CheckMark className='check-mark-icon' /> : null}
       </Styled.StyledDayCardContainer>
       <Modal
+        id={taskDay}
         ref={modal}
-        correctAnswer={correctAnswer}
         isModalVisible={isModalVisible}
-        showDayModal={isActive || isToday ? showDayModal : null}
-        dayNumber={id}
+        showDayModal={showDayModal}
+        dayNumber={taskDay}
         date={transformDateToString(cardDate)}
-        content={content}
+        content={taskContent}
+        level={level}
+        isAvailable={isAvailable}
       />
-      <Styled.StyledModalBackground
-        onClick={isActive || isToday ? () => showDayModal() : null}
-        isModalVisible={isModalVisible}
-      />
+      <Styled.StyledModalBackground onClick={() => showDayModal()} isModalVisible={isModalVisible} />
     </>
   );
 };
@@ -109,11 +107,21 @@ DayCard.propTypes = {
   isActive: propTypes.bool.isRequired,
   isRevealed: propTypes.bool.isRequired,
   isCompleted: propTypes.bool.isRequired,
-  cardDate: propTypes.func.isRequired,
+  isAvailable: propTypes.bool.isRequired,
+  cardDate: propTypes.instanceOf(Date).isRequired,
+  currentDate: propTypes.instanceOf(Date).isRequired,
   taskData: propTypes.shape({
-    id: propTypes.number.isRequired,
-    type: propTypes.string.isRequired,
-    content: propTypes.string.isRequired,
-    correctAnswer: propTypes.string.isRequired,
-  }).isRequired,
+    id: propTypes.number,
+    taskDay: propTypes.number.isRequired,
+    category: propTypes.string.isRequired,
+    taskContent: propTypes.string,
+    level: propTypes.string.isRequired,
+  }),
+};
+
+DayCard.defaultProps = {
+  taskData: {
+    id: null,
+    taskContent: 'Brak dostępu',
+  },
 };

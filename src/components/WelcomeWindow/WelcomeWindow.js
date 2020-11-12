@@ -15,13 +15,14 @@ const WelcomeWindow = () => {
       <StyledWelcomeWindow>
         <header className='page-header'>
           <h1 className='page-header-text'>
-            Kalendarz Adwentowy <br /> Programisty <br />
+            <span className='capital'>K</span>alendarz <span className='capital'>A</span>dwentowy <br />{' '}
+            <span className='capital'>P</span>rogramisty <br />
           </h1>
           <span className='info'>
             <a href='#calendar' className='info-icon' title='Do kalendarza'>
               <AkaiLogo />
             </a>
-            <QuestionMark class='info-icon' onClick={() => setModalVisible(1)} title='Zasady' />
+            <QuestionMark className='info-icon' onClick={() => setModalVisible(1)} title='Zasady' />
           </span>
           <br />
         </header>

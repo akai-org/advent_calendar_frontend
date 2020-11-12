@@ -95,6 +95,11 @@ const StyledWelcomeWindow = styled.header`
     top: 15vh;
     text-transform: uppercase;
     z-index: 30;
+    line-height: 6rem;
+
+    & .capital {
+      font-size: 1.2em;
+    }
 
     &-text {
       margin: 0;
@@ -102,6 +107,8 @@ const StyledWelcomeWindow = styled.header`
     }
 
     @media (max-width: 1024px) {
+      line-height: 2.1rem;
+
       &-text {
         font-size: 2rem;
       }

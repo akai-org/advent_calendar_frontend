@@ -1,0 +1,92 @@
+{
+  "tasks": [
+    {
+      "id": 25,
+      "taskDay": 1,
+      "taskDate": "2020-11-04",
+      "level": "Po prostu kod",
+      "taskContent": "Some good stuff for user",
+      "category": "JavaScript"
+    },
+    {
+      "id": 26,
+      "taskDay": 2,
+      "taskDate": "2020-11-05",
+      "level": "Po prostu kod",
+      "taskContent": "Some good stuff for user",
+      "category": "JavaScript"
+    },
+    {
+      "id": 1,
+      "taskDay": 3,
+      "taskDate": "2020-11-06",
+      "level": "Po prostu kod",
+      "taskContent": "2 + 2",
+      "category": "Matma"
+    },
+    {
+      "id": 2,
+      "taskDay": 4,
+      "taskDate": "2020-11-07",
+      "level": "Droga ku depresji",
+      "taskContent": "Najlepszy język to",
+      "category": "Języki"
+    },
+    {
+      "id": 3,
+      "taskDay": 5,
+      "taskDate": "2020-11-08",
+      "level": "Dokumentacja, Stack Overflow i łzy",
+      "taskContent": "Najlepsza gra to",
+      "category": "Simsy"
+    },
+    {
+      "id": 4,
+      "taskDay": 6,
+      "taskDate": "2020-11-09",
+      "level": "Dokumentacja, Stack Overflow i łzy",
+      "taskContent": "Some good stuff for user",
+      "category": "Stuff"
+    },
+    {
+      "id": 5,
+      "taskDay": 7,
+      "taskDate": "2020-11-10",
+      "level": "Po prostu kod",
+      "taskContent": "Najlepsze koło na PP to",
+      "category": "PP"
+    },
+    {
+      "id": 6,
+      "taskDay": 8,
+      "taskDate": "2020-11-11",
+      "level": "Po prostu kod",
+      "taskContent": "Kto robił backend?",
+      "category": "Postacie"
+    },
+    {
+      "id": 7,
+      "taskDay": 9,
+      "taskDate": "2020-11-12",
+      "level": "Po prostu kod",
+      "taskContent": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source <br /><br /> Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
+      "category": "Js królem jest"
+    },
+    {
+      "id": 8,
+      "taskDay": 10,
+      "taskDate": "2020-11-13",
+      "level": "Po prostu kod",
+      "taskContent": "Some good stuff for user",
+      "category": "Stuff"
+    },
+    {
+      "id": 9,
+      "taskDay": 11,
+      "taskDate": "2020-11-14",
+      "level": "Po prostu kod",
+      "taskContent": "Some good stuff for user",
+      "category": "Stuff"
+    }
+  ]
+}
