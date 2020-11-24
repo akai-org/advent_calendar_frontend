@@ -27,17 +27,40 @@ const months = [
 ];
 
 const StyledCalendar = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
   justify-content: space-between;
   flex-wrap: wrap;
   width: 70vw;
-  padding: 20px;
   margin: 500px auto 600px;
+  position: relative;
+
+  @media (max-width: 1600px) {
+    grid-template-columns: repeat(5, 1fr);
+    width: 80vw;
+  }
+
+  @media (max-width: 1300px) {
+    grid-template-columns: repeat(4, 1fr);
+    width: 80vw;
+  }
 
   @media (max-width: 1024px) {
-    display: flex;
-    flex-direction: column;
+    grid-template-columns: repeat(3, 1fr);
     width: fit-content;
+  }
+
+  @media (max-width: 858px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  &:after {
+    content: '';
+    flex: auto;
   }
 
   @media (max-width: 768px) {
@@ -75,7 +98,7 @@ const Calendar = () => {
       );
     });
 
-    fetch('https://run.mocky.io/v3/002425b5-4d48-47eb-b872-6a08e8563ca2', {
+    fetch('http://api.advent.akai.org.pl/api/tasks/now/', {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -86,12 +109,12 @@ const Calendar = () => {
         return response.json();
       })
       .then((res2) => {
-        settaskData(res2.tasks);
+        settaskData(res2);
 
-        return res2.tasks;
+        return res2;
       })
       .then((tasks) => {
-        const tasksSize = tasks.length;
+        const tasksSize = tasks ? tasks.length : 0;
 
         const dateDetailss = tasksSize > 0 ? tasks[tasksSize - 1].taskDate.split('-') : ['2020', '11', '29'];
         const lastDayDate = new Date(`${months[+dateDetailss[1] - 1]} ${dateDetailss[2]}, ${dateDetailss[0]}`);

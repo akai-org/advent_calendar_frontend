@@ -24,7 +24,6 @@ const AdventInfoModal = ({ isModalVisible, setModalVisible }) => {
   return (
     <StyledAdventInfoModal ref={modal} isModalVisible={isModalVisible}>
       <StyledCloseButton onClick={() => setModalVisible(!isModalVisible)} />
-      <Cocard />
       <h2>Kalendarz Adwentowy by AKAI</h2>
       <h4>Edycja 2020</h4>
       <p className='info-modal-paragraph'>
@@ -37,12 +36,13 @@ const AdventInfoModal = ({ isModalVisible, setModalVisible }) => {
         <br />
         <br />
         Strona w dużej mierze oparta jest na ciasteczkach, toteż zalecamy, aby nie usuwać ich do końca czasu trwania
-        adwentu. Jeżeli wykonasz wszystkie zadania, czeka cię nagroda.
+        adwentu.
         <br />
         <br />
         Projekt wykonany w ramach członkostwa w kole naukowym &quot;Akademickie Koło Aplikacji Internetowych&quot; na
         Politechnice Poznańskiej. Dowiedz się o nas więcej <a href='https://akai.org.pl'>tutaj</a>.
       </p>
+      <Cocard />
     </StyledAdventInfoModal>
   );
 };

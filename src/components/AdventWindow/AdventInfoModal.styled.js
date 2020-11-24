@@ -3,17 +3,25 @@ import styled from 'styled-components';
 const StyledAdventInfoModal = styled.div`
   display: ${({ isModalVisible }) => (isModalVisible ? 'flex' : 'none')};
   position: fixed;
-  width: 30vw;
+  width: 35vw;
   max-height: 90vh;
   background-color: #cccccc;
   left: calc(50% - 15vw);
-  top: 10vh;
+  top: 5vh;
   z-index: 30;
   flex-direction: column;
   align-items: center;
   padding: 20px 50px;
   font-size: 1.5rem;
   animation: appear 600ms ease-in-out;
+
+  & svg {
+    transform: translateY(60px);
+    position: relative;
+    width: 120px;
+    height: 90px;
+    top: 10vh;
+  }
 
   @keyframes appear {
     0% {

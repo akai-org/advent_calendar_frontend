@@ -37,7 +37,7 @@ const StyledWelcomeWindow = styled.header`
     transform-origin: center;
     transform: scaleY(0.75);
 
-    @media (max-width: 1024px) {
+    @media (max-width: 1300px) {
       top: 90vh;
       transform: scale(1.6);
     }
@@ -128,7 +128,7 @@ const StyledWelcomeWindow = styled.header`
       margin-left: 20px;
       cursor: pointer;
 
-      fill: #cccccc;
+      /* fill: #cccccc; */
 
       @media (max-width: 1024px) {
         width: 25px;

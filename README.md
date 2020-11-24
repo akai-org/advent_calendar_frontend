@@ -4,7 +4,7 @@ Cześć! Kalendarz adwentowy czeka z nowymi wyzwaniami. Codzienne zadania progra
 
 Wracaj tu codziennie, by sprawdzić co na ciebie czeka. Jeżeli w dany dzień klikniesz zadanie, to możesz je rozwiązać później, więc nie martw się jeżeli nie znajdziejsz od razu czasu.
 
-Strona w dużej mierze oparta jest na ciasteczkach, toteż zalecamy, aby nie usuwać ich do końca czasu trwania adwentu. Jeżeli wykonasz wszystkie zadania, czeka cię nagroda.
+Strona w dużej mierze oparta jest na ciasteczkach, toteż zalecamy, aby nie usuwać ich do końca czasu trwania adwentu.
 
 Projekt wykonany w ramach członkostwa w kole naukowym "Akademickie Koło Aplikacji Internetowych" na Politechnice Poznańskiej. Dowiedz się o nas więcej [tutaj](https://akai.org.pl).
 

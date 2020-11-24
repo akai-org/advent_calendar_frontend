@@ -17,10 +17,18 @@ const StyledModal = styled.div`
   left: calc(50% - 300px);
 
   .task-level {
-    position: absolute;
-    top: 30px;
-    font-size: 2rem;
-    margin-left: 15%;
+    position: relative;
+    /* margin: 30px 0 0 0; */
+    font-size: 2.4rem;
+    align-self: flex-start;
+    margin-left: 130px;
+    margin-top: 140px;
+    font-weight: bold;
+
+    @media (max-width: 1024px) {
+      margin-left: 70px;
+      margin-top: 70px;
+    }
   }
 
   @media (max-width: 1024px) {
@@ -54,11 +62,11 @@ const StyledModal = styled.div`
     padding: 10px;
     overflow-y: scroll;
     font-size: 1.5rem;
-    margin: 120px 40px 40px 120px;
+    margin: 15px 40px 40px 120px;
     text-align: left;
 
     @media (max-width: 1024px) {
-      margin: 70px 15px 30px 70px;
+      margin: 10px 15px 30px 60px;
     }
   }
 
