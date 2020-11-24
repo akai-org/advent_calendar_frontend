@@ -20,7 +20,6 @@ const StyledAdventInfoModal = styled.div`
     position: relative;
     width: 120px;
     height: 90px;
-    top: 10vh;
   }
 
   @keyframes appear {
@@ -38,6 +37,7 @@ const StyledAdventInfoModal = styled.div`
     width: 90vw;
     height: 80vh;
     padding: 10px 15px;
+    top: 10vh;
 
     left: calc(50% - 45vw);
     top: calc(50% - 40vh);
@@ -46,9 +46,13 @@ const StyledAdventInfoModal = styled.div`
 
     font-size: 1.2rem;
 
+    & svg {
+      display: none;
+    }
+
     h4,
     h2 {
-      margin: 0 5px;
+      margin: 0 20px;
     }
   }
 `;

@@ -48,7 +48,7 @@ const StyledWelcomeWindow = styled.header`
     width: 230px;
 
     @media (max-width: 1024px) {
-      width: 80px;
+      display: none;
     }
   }
 

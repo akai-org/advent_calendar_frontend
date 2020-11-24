@@ -18,7 +18,6 @@ const StyledModal = styled.div`
 
   .task-level {
     position: relative;
-    /* margin: 30px 0 0 0; */
     font-size: 2.4rem;
     align-self: flex-start;
     margin-left: 130px;
