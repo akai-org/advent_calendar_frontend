@@ -59,7 +59,7 @@ const StyledModal = styled.div`
 
   .task-content {
     padding: 10px;
-    overflow-y: scroll;
+    overflow-y: auto;
     font-size: 1.5rem;
     margin: 15px 40px 40px 120px;
     text-align: left;
