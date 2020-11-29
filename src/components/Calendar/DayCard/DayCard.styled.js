@@ -22,7 +22,7 @@ const StyledDayCardContainer = styled.div`
   & .check-mark-icon {
     position: absolute;
     bottom: -10px;
-    right: -18px;
+    left: -18px;
     transform: scale(0.7);
     fill: green;
   }
