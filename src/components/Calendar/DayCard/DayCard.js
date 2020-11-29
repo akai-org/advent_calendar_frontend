@@ -16,7 +16,7 @@ const DayCard = ({ isActive, isRevealed, cardDate, taskData, isCompleted, curren
   const [isRevealedState, setRevealedState] = useState(0);
   const [isModalVisible, setModalVisible] = useState(0);
 
-  const { taskDay, category, taskContent, level } = taskData;
+  const { taskDay, category, taskContent, level, id } = taskData;
   const [cookies, setCookie] = useCookies(['revealedDayCards']);
 
   const dayImage = require(`../../../assets/svg/days/${taskDay}.svg`);
@@ -86,7 +86,7 @@ const DayCard = ({ isActive, isRevealed, cardDate, taskData, isCompleted, curren
         {isCompleted ? <CheckMark className='check-mark-icon' /> : null}
       </Styled.StyledDayCardContainer>
       <Modal
-        id={taskDay}
+        id={id}
         ref={modal}
         isModalVisible={isModalVisible}
         showDayModal={showDayModal}
