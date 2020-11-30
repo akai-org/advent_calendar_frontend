@@ -22,7 +22,7 @@ const Modal = forwardRef(({ isModalVisible, showDayModal, dayNumber, date, conte
       userAnswer: e.target.children[0].value,
     });
 
-    fetch('http://35.242.198.23/api/tasks/answer', {
+    fetch('http://api.advent.akai.org.pl/api/tasks/answer', {
       mode: 'cors',
       body: dataAnswerStringify,
       method: 'post',
