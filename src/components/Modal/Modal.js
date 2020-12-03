@@ -124,8 +124,12 @@ const Modal = forwardRef(({ isModalVisible, showDayModal, correctAnswer, dayNumb
       <div className='task-content' ref={contentElement} />
       {!cookies.completedDayCards.includes(dayNumber) ? (
         <form action='' onSubmit={(e, dayNumber) => handleSubmit(e, dayNumber)}>
-          <input type='text' placeholder='odpowiedź' />
-          <button type='submit'>Sprawdź</button>
+          {correctAnswer && correctAnswer !== '' ? (
+            <>
+              <input type='text' placeholder='odpowiedź' />
+              <button type='submit'>Sprawdź</button>
+            </>
+          ) : null}
         </form>
       ) : (
         <CheckMark class='check-mark-icon' />

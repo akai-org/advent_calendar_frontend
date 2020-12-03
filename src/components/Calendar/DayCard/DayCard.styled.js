@@ -49,7 +49,7 @@ const StyledCard = styled.div`
   transform-style: preserve-3d;
   /* cursor: pointer; */
 
-  /* opacity: ${({ isActive }) => (isActive ? 1 : 0.5)}; */
+  opacity: ${({ isActive }) => (isActive ? 1 : 0.5)};
 
   @media (max-width: 1024px) {
     width: 250px;

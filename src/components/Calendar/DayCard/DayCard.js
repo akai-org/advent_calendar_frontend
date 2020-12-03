@@ -73,8 +73,8 @@ const DayCard = ({ isActive, isRevealed, cardDate, taskData, isCompleted }) => {
         isActive={isActive || isToday}
         isRevealed={isRevealedState}
         dayNumber={id}
-        // onClick={isActive || isToday ? () => handleClick(id) : null}
-        onClick={() => handleClick(id)}
+        onClick={isActive || isToday ? () => handleClick(id) : null}
+        // onClick={() => handleClick(id)}
       >
         <Styled.StyledCard isActive={isActive || isToday}>
           <Styled.StyledFrontSide date={transformDateToString(cardDate)}>

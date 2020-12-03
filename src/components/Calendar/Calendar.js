@@ -31,6 +31,7 @@ const StyledCalendar = styled.div`
 
 const Calendar = () => {
   const [taskData, settaskData] = useState(null);
+  const [previousDays, setPreviousDays] = useState([]);
   const wrapper = useRef(null);
   const [cookies, setCookie] = useCookies(['revealedDayCards']);
 
@@ -68,7 +69,7 @@ const Calendar = () => {
         // taskData = data.tasks;
         settaskData(data.tasks);
         const dateToCheck = activeDay[0] ? activeDay[0].id : null;
-        const previousDays = data.tasks.filter((day) => day.id <= dateToCheck);
+        setPreviousDays(data.tasks.filter((day) => day.id <= dateToCheck));
       });
   }, []);
 
@@ -78,6 +79,7 @@ const Calendar = () => {
         {taskData.map((day, i) => {
           const isRevealed = revealedDayCards.includes(i + 1);
           const isCompleted = completedDayCards.includes(i + 1);
+          const isAvailable = day === previousDays[i];
 
           const cardDate = new Date(day.taskDay);
 
@@ -88,7 +90,18 @@ const Calendar = () => {
               isRevealed={isRevealed ? true : null}
               isCompleted={isCompleted ? true : null}
               cardDate={cardDate}
-              taskData={day}
+              taskData={
+                isAvailable
+                  ? day
+                  : {
+                      id: day.id,
+                      type: day.type,
+                      fullType: day.fullType,
+                      content: '',
+                      correctAnswer: '',
+                      taskDay: day.taskDay,
+                    }
+              }
             />
           );
         })}
