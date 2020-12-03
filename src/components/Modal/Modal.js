@@ -66,6 +66,7 @@ const StyledModal = styled.div`
     padding: 10px;
     color: #cccccc;
     border: solid 2px #ffd259;
+    text-align: left;
 
     @media (max-width: 1024px) {
       margin: 15px;
