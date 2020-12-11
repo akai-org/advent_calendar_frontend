@@ -4,6 +4,14 @@ import DayCard from './DayCard/DayCard';
 import { tasks } from './../../data/tasks';
 import { gsap } from 'gsap';
 
+const activeDay = 14;
+const revealedDayCards = [1, 2, 6, 10, 12];
+
+const firstDay = `Nov 29, 2020`;
+const beginDate = new Date(firstDay);
+
+// alert(currentDate.getDay(), currentDate.getDate(), currentDate.getFullYear());
+
 const StyledCalendar = styled.div`
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -104,9 +112,27 @@ const Calendar = () => {
   return (
     <>
       <StyledCalendar ref={wrapper}>
-        {tasks.map((day) => (
-          <DayCard front={day.dayNumber} back='JS' className={`card${day.dayNumber}`} />
-        ))}
+        {tasks.map((day, i) => {
+          const isRevealed = revealedDayCards.includes(i + 1);
+
+          const cardDate = new Date(beginDate);
+          cardDate.setDate(beginDate.getDate() + i);
+
+          console.log(cardDate);
+
+          return (
+            <DayCard
+              key={'card' + i + 1}
+              front={day.dayNumber}
+              back='JS'
+              className={`card${day.dayNumber}`}
+              isActive={isRevealed ? true : null}
+              // isActive={i <= activeDay - 1 ? null : null}
+              revealed={isRevealed ? true : null}
+              cardDate={cardDate}
+            />
+          );
+        })}
       </StyledCalendar>
     </>
   );

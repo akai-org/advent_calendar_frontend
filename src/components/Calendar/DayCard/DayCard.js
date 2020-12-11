@@ -1,46 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import styled from 'styled-components';
+import Modal from 'components/Modal/Modal';
 // import StyledModal from 'components/Modal/Modal';
-
-const StyledModal = styled.div`
-  position: absolute;
-  background: powderblue;
-  z-index: 20;
-  border-radius: 10px;
-  /* display: ${({ isModalVisible }) => (isModalVisible ? 'block' : 'none')}; */
-`;
-
-const StyledCloseButton = styled.div`
-  position: absolute;
-  right: 10px;
-  top: 5px;
-  height: 20px;
-  width: 20px;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  cursor: pointer;
-
-  &:before,
-  &:after {
-    content: '';
-    width: 100%;
-    height: 3px;
-    background-color: black;
-    z-index: 25;
-    position: absolute;
-    top: 10px;
-  }
-
-  &:before {
-    transform: rotate(45deg);
-  }
-
-  &:after {
-    transform: rotate(-45deg);
-  }
-`;
 
 const StyledDayCardContainer = styled.div`
   background-color: transparent;
@@ -51,6 +13,8 @@ const StyledDayCardContainer = styled.div`
   & > div {
     ${({ isRevealed }) => (isRevealed ? 'transform: rotateY(180deg)' : null)};
   }
+
+  cursor: ${({ isActive }) => (isActive ? 'pointer' : null)};
 `;
 
 const StyledCard = styled.div`
@@ -60,7 +24,9 @@ const StyledCard = styled.div`
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
-  cursor: pointer;
+  /* cursor: pointer; */
+
+  opacity: ${({ isActive }) => (isActive ? 1 : 0.3)};
 
   --borderWidth: 3px;
   background: #1d1f20;
@@ -69,6 +35,7 @@ const StyledCard = styled.div`
 
   &:after {
     content: '';
+    /* content: ${({ isActive }) => (isActive ? '' : null)}; */
     position: absolute;
     top: calc(-1 * var(--borderWidth));
     left: calc(-1 * var(--borderWidth));
@@ -101,7 +68,6 @@ const StyledSide = styled.div`
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   border-radius: 10px;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -122,15 +88,8 @@ const StyledFrontSide = styled(StyledSide)`
 const StyledBackSide = styled(StyledSide)`
   color: white;
   transform: rotateY(180deg);
+  opacity: 1;
 `;
-
-// const StyledModal = styled.div`
-//   position: absolute;
-//   background: powderblue;
-//   z-index: 20;
-//   border-radius: 10px;
-//   display: ${({ isModalVisible }) => (isModalVisible ? 'block' : 'none')};
-// `;
 
 const StyledModalBackground = styled.div`
   position: fixed;
@@ -139,14 +98,10 @@ const StyledModalBackground = styled.div`
   left: -20px;
   top: -20px;
   display: ${({ isModalVisible }) => (isModalVisible ? 'block' : 'none')};
-  z-index: 2;
+  z-index: 19;
 `;
 
-// const Modal = ({ isModalVisible }) => {
-//   return <StyledModal isModalVisible={isModalVisible}></StyledModal>;
-// };
-
-const DayCard = ({ front, back, className }) => {
+const DayCard = ({ front, back, className, isActive, revealed, cardDate }) => {
   const card = useRef(null);
   const modal = useRef(null);
 
@@ -166,15 +121,21 @@ const DayCard = ({ front, back, className }) => {
         setCoordinates(card.current.getBoundingClientRect());
         const { top, left, height, width } = coordinates ? coordinates : card.current.getBoundingClientRect();
 
+        // modal.current.style.display = 'block';
+
+        console.log(coordinates);
+
         gsap.fromTo(
           modal.current,
-          { top, left, width, height },
+          { top, left, width, height, display: 'none', opacity: 0 },
           {
             duration: 0.8,
             top: `calc(50% - ${450 / 2}px)`,
             left: `calc(50% - ${400 / 2}px)`,
             width: '400px',
             height: '450px',
+            display: 'block',
+            opacity: 1,
           }
         );
 
@@ -184,6 +145,7 @@ const DayCard = ({ front, back, className }) => {
         const { top, left, height, width } = coordinates;
 
         gsap.to(modal.current, { duration: 0.8, top, left, width, height, opacity: 0 });
+        gsap.to(modal.current, { delay: 0.8, display: 'none' });
 
         setModalVisible(0);
       }
@@ -195,26 +157,40 @@ const DayCard = ({ front, back, className }) => {
     showDayModal();
   };
 
+  const transformDateToString = (date) =>
+    `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear().toString().slice(2, 4)}`;
+
+  console.log(new Date());
+  const isToday = transformDateToString(new Date()) === transformDateToString(cardDate) ? 1 : 0;
+
+  // console.log(transformDateToString(new Date()), transformDateToString(cardDate));
+
+  useEffect(() => {
+    if (revealed) card.current.click();
+  }, []);
+
   return (
     <>
       <StyledDayCardContainer
         ref={card}
+        isActive={isActive || isToday}
         className={className}
         isRevealed={isRevealed}
-        onClick={() => handleClick(modal)}
+        onClick={isActive || isToday ? () => handleClick() : null}
       >
-        <StyledCard>
+        <StyledCard isActive={isActive || isToday}>
           <StyledFrontSide>
             {front}
-            <span>29.11.20</span>
+            <span>{transformDateToString(cardDate)}</span>
           </StyledFrontSide>
           <StyledBackSide>{back}</StyledBackSide>
         </StyledCard>
       </StyledDayCardContainer>
-      <StyledModal ref={modal} isModalVisible={isModalVisible}>
-        <StyledCloseButton onClick={() => showDayModal()} />
-      </StyledModal>
-      <StyledModalBackground isModalVisible={isModalVisible} />
+      <Modal ref={modal} isModalVisible={isModalVisible} showDayModal={isActive || isToday ? showDayModal : null} />
+      <StyledModalBackground
+        onClick={isActive || isToday ? () => showDayModal() : null}
+        isModalVisible={isModalVisible}
+      />
     </>
   );
 };
